@@ -1,12 +1,18 @@
 import { useState } from "react";
+import Error from "./Error";
 
-function Formulario() {
+function Formulario({ pacientes, setPacientes }) {
 	const [nombre, setNombre] = useState("");
 	const [propietario, setPropietario] = useState("");
 	const [email, setEmail] = useState("");
 	const [fecha, setFecha] = useState("");
 	const [sintomas, setSintomas] = useState("");
 	const [error, setError] = useState(false);
+	const generarId = () => {
+		const random = Math.random().toString(36).slice(2);
+		const fecha = Date.now().toString(36);
+		return random + fecha;
+	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (
@@ -19,6 +25,20 @@ function Formulario() {
 			return;
 		}
 		setError(false);
+		const objetoPaciente = {
+			nombre,
+			propietario,
+			email,
+			fecha,
+			sintomas,
+			id: generarId(),
+		};
+		setPacientes([...pacientes, objetoPaciente]);
+		setNombre("");
+		setPropietario("");
+		setEmail("");
+		setFecha("");
+		setSintomas("");
 	};
 	return (
 		<div className="px-3 md:w-1/2 lg:w-2/5">
@@ -36,12 +56,12 @@ function Formulario() {
 				className="px-5 py-10 mb-10 bg-white rounded-lg shadow-md"
 			>
 				{error && (
-					<div className="p-3 mb-3 font-bold text-center text-white uppercase bg-red-600 rounded-md">
+					<Error>
 						<p>
 							Todos los campos son
 							Obligatorios
 						</p>
-					</div>
+					</Error>
 				)}
 
 				<div className="mb-5">

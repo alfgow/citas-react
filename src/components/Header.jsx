@@ -1,5 +1,4 @@
-function Header({ tomaValor }) {
-	tomaValor("Hola");
+function Header() {
 	return (
 		<>
 			<h1 className="mx-auto text-5xl font-black text-center md:w-2/3">
