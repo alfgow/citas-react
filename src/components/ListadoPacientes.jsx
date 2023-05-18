@@ -1,7 +1,7 @@
 import Paciente from "./Paciente";
 
-function ListadoPacientes({ pacientes }) {
-	console.log(pacientes.length);
+function ListadoPacientes({ pacientes, setPaciente, eliminarPaciente }) {
+	console.log(pacientes);
 	return (
 		<div className="overflow-y-scroll md:h-screen md:w-1/2 lg:w-3/5">
 			{pacientes && pacientes.length ? (
@@ -15,30 +15,18 @@ function ListadoPacientes({ pacientes }) {
 							Pacientes y citas
 						</span>
 					</p>
-					{pacientes.map((paciente) => {
-						const {
-							nombre,
-							propietario,
-							email,
-							fecha,
-							sintomas,
-							id,
-						} = paciente;
-						return (
-							<Paciente
-								key={id}
-								nombre={nombre}
-								propietario={
-									propietario
-								}
-								email={email}
-								fecha={fecha}
-								sintomas={
-									sintomas
-								}
-							/>
-						);
-					})}
+					{pacientes.map((paciente) => (
+						<Paciente
+							key={paciente.id}
+							paciente={paciente}
+							setPaciente={
+								setPaciente
+							}
+							eliminarPaciente={
+								eliminarPaciente
+							}
+						/>
+					))}
 				</>
 			) : (
 				<>
